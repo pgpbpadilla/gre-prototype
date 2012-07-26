@@ -6,7 +6,6 @@ package com.view.controller;
 
 import com.model.dao.DummyOmniDAO;
 import com.model.pojos.Node;
-import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
@@ -27,7 +26,7 @@ public class ViewController {
      */
     public ViewController() {
         DummyOmniDAO dod = new DummyOmniDAO();
-
+        
         allNodes = new ListDataModel<Node>(dod.getAllNodes());
     }
 

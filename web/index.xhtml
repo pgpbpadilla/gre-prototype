@@ -2,30 +2,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:editors="http://java.sun.com/jsf/composite/editors">
     <h:head>
+        <h:outputStylesheet library="css"  name="common-style.css"/>
+        <h:outputScript library="js" name="jquery.min.js"/>
+
         <title>Facelet Title</title>
+
     </h:head>
     <h:body>
+        <h:form>
+            <div class="main-container">
+                <div class="left-side-bar">
+                    left side bar
+                    <h:dataTable id="allNodesTable" value="${viewController.allNodes}"
+                                 var="node">
 
-        <h:dataTable id="allNodesTable" value="${viewController.allNodes}"
-                     var="node">
+                        <h:column>
+                            <f:facet name="header">  
+                                <h:outputText value="Name" />  
+                            </f:facet>  
+                            <h:outputText value="${node.name}"/>
+                        </h:column>
 
-            <h:column>
-                <f:facet name="header">  
-                    <h:outputText value="Name" />  
-                </f:facet>  
-                <h:outputText value="${node.name}"/>
-            </h:column>
+                        <h:column>
+                            <f:facet name="header">  
+                                <h:outputText value="Description" />  
+                            </f:facet>  
+                            <h:outputText value="${node.description}"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
 
-            <h:column>
-                <f:facet name="header">  
-                    <h:outputText value="Description" />  
-                </f:facet>  
-                <h:outputText value="${node.description}"/>
-            </h:column>
-        </h:dataTable>
+                <div class="center-content">
+                    center content
+
+                    <div class="top-concept scrollable">
+                        <editors:tinymce value="#{tinyMCETest.summary}"/>
+                    </div>
+
+                    <div class="bottom-concept scrollable">
+                        <editors:tinymce value="#{tinyMCETest.summary}"/>
+                    </div>
+                </div>
+
+                <div class="right-side-bar">
+                    right side bar
+                </div>
+            </div>
+        </h:form>
     </h:body>
-    
+
 </html>
 

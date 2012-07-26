@@ -17,6 +17,10 @@ public class Node {
     /** Tags will allow for faster searches 
      * This way we can index the Nodes by topic
      */
+    
+    // this will be used to: 
+    // - discriminate among types of concepts
+    // - areas to which the concepts belong
     List<String> tags;
 
     public Node() {
