@@ -8,8 +8,8 @@
         <composite:attribute name="value"/>
     </composite:interface>
     <composite:implementation>
-        <h:outputScript library="tiny_mce" name="tiny_mce.js"/>
-        <h:outputScript library="editors" name="tinymce_init.js"/>
+        <h:outputScript  name="tiny_mce/tiny_mce.js"/>
+        <h:outputScript  name="editors/tinymce_init.js"/>
         <h:inputTextarea rows="5" cols="80" styleClass="tinymce"
                          value="#{cc.attrs.value}"/>
     </composite:implementation>
