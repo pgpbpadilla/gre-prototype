@@ -19,7 +19,7 @@ public class DummyOmniDAO implements AbstractOmniDAO {
         List<Node> list = new ArrayList<Node>();
 
         for (int i = 0; i < 10; ++i) {
-            list.add(new Node(i, "Name " + i, "Desc " + i, null));
+            list.add(new Node(i, "Name " + i, "Description of node " + i +": Adi dui dambala" , null));
         }
 
         return list;

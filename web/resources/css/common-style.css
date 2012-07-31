@@ -1,3 +1,7 @@
+body{
+
+    font-family: sans-serif;
+}
 #page{
     width: 800px;
     margin: 0 auto;
@@ -58,4 +62,21 @@ table, div{
 }
 .scrollable{
     overflow: scroll;
+}
+.node-name{
+    font-size: 14px;
+    font-weight: bold;
+    border:none;
+}
+.node-description{
+    font-size: 12px;
+    border:none;
+}
+.related-nodes,
+.source-nodes{
+    width: 100%;
+    border-spacing: 0px;
+}
+.node-info{
+    text-align: center;
 }

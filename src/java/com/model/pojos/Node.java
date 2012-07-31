@@ -4,6 +4,7 @@
  */
 package com.model.pojos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class Node {
     // - discriminate among types of concepts
     // - areas to which the concepts belong
     List<String> tags;
+    List<Presentation> presentations;
 
     public Node() {
     }
@@ -31,6 +33,8 @@ public class Node {
         this.name = name;
         this.description = description;
         this.tags = tags;
+        this.presentations=new ArrayList<Presentation>();
+        this.presentations.add(new Presentation(this, "Blob blob blob..." + id));
     }
 
     public String getDescription() {
@@ -63,6 +67,14 @@ public class Node {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public List<Presentation> getPresentations() {
+        return presentations;
+    }
+
+    public void setPresentations(List<Presentation> presentations) {
+        this.presentations = presentations;
     }
     
     

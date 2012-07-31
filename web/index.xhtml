@@ -7,6 +7,7 @@
     <h:head>
         <h:outputStylesheet library="css"  name="common-style.css"/>
         <h:outputScript library="js" name="jquery.min.js"/>
+        <h:outputScript library="js" name="utils.js"/>
 
         <title>Facelet Title</title>
 
@@ -15,22 +16,29 @@
         <h:form>
             <div class="main-container">
                 <div class="left-side-bar">
-                    left side bar
-                    <h:dataTable id="allNodesTable" value="${viewController.allNodes}"
-                                 var="node">
+                    <div class="search">
+                        <h:outputLabel value="Search:"/>
+                        <h:inputText class="search-key"/>
+                    </div>
+                    <h:dataTable  class="source-nodes"
+                                  value="${viewController.sourceNodes}"
+                                  var="node">
 
                         <h:column>
                             <f:facet name="header">  
-                                <h:outputText value="Name" />  
+                                <h:outputText value="Concept" />  
                             </f:facet>  
-                            <h:outputText value="${node.name}"/>
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">  
-                                <h:outputText value="Description" />  
-                            </f:facet>  
-                            <h:outputText value="${node.description}"/>
+                            <div class="node-info">
+                                <div class="node-name">
+                                    <h:outputText value="${node.name}"/>
+                                </div>
+                                <div class="node-description">
+                                    <h:outputText value="${node.description}"/>
+                                </div>
+                            </div>
+                            <h:commandButton class="search" 
+                                             style="display: none;" type="submit"
+                                             action="${viewController.loadSource()}"/>
                         </h:column>
                     </h:dataTable>
                 </div>
@@ -39,19 +47,46 @@
                     center content
 
                     <div class="top-concept scrollable">
-                        <editors:tinymce value="#{tinyMCETest.summary}"/>
+                        <editors:tinymce value="#{viewController.sourceContent}"/>
                     </div>
 
                     <div class="bottom-concept scrollable">
-                        <editors:tinymce value="#{tinyMCETest.summary}"/>
+                        <editors:tinymce value="#{viewController.relatedContent}"/>
                     </div>
                 </div>
 
                 <div class="right-side-bar">
-                    right side bar
+                    <div class="search">
+                        <h:outputLabel value="Search:"/>
+                        <h:inputText class="search-key"/>
+                    </div>
+                    <h:dataTable  class="related-nodes"
+                                  value="${viewController.relatedNodes}"
+                                  var="node">
+
+                        <h:column>
+                            <f:facet name="header">  
+                                <h:outputText value="${viewController.currentSource.name}'s Related" />  
+                            </f:facet>  
+                            <div class="node-info">
+                                <div class="node-name">
+                                    <h:outputText value="${node.name}"/>
+                                </div>
+                                <div class="node-description">
+                                    <h:outputText value="${node.description}"/>
+                                </div>
+                            </div>
+                            <h:commandButton class="search" 
+                                             style="display: none;" type="submit"
+                                             action="${viewController.loadRelated()}"/>
+                        </h:column>
+                    </h:dataTable>
                 </div>
             </div>
         </h:form>
+        <script type="text/javascript">
+            setupView();
+        </script>
     </h:body>
 
 </html>
