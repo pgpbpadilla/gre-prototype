@@ -26,6 +26,10 @@ public class Node {
     List<Presentation> presentations;
 
     public Node() {
+        name="";
+        description="";
+        tags=null;
+        presentations=null;
     }
 
     public Node(int id, String name, String description, List<String> tags) {

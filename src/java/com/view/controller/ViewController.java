@@ -4,11 +4,14 @@
  */
 package com.view.controller;
 
+import com.model.dao.AbstractOmniDAO;
 import com.utils.Filter;
 import com.model.dao.DummyOmniDAO;
 import com.model.pojos.Node;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -26,32 +29,31 @@ public class ViewController {
     Node currentRelated;
     String sourceContent;
     String relatedContent;
+    
+    Node newNode;
 
+    
     /**
      * Creates a new instance of ViewController
      */
     public ViewController() {
+        
+        newNode= new Node();
         sourceNodes = null;
         relatedNodes = null;
-        sourceContent="";
-        relatedContent="";
+        sourceContent = "";
+        relatedContent = "";
 
-        loadSourceConcepts();
-    }
 
-    public DataModel getAllNodes() {
-        return sourceNodes;
-    }
-
-    public void setAllNodes(DataModel allNodes) {
-        this.sourceNodes = allNodes;
+        // load all the source nodes
+        loadSourceNodes();
     }
 
     /**
      * Retrieves the basic info for all nodes in the data base: name,
      * description
      */
-    private void loadSourceConcepts() {
+    private void loadSourceNodes() {
         DummyOmniDAO dod = new DummyOmniDAO();
         sourceNodes = new ListDataModel<Node>(dod.getAllNodes());
     }
@@ -64,8 +66,9 @@ public class ViewController {
      * @return DataModel
      */
     public void loadAllRelated() {
+        AbstractOmniDAO dao = new DummyOmniDAO();
         currentSource = (Node) sourceNodes.getRowData();
-        relatedNodes = sourceNodes;
+        relatedNodes = new ListDataModel<Node>(dao.getRelatedNodes(currentSource));
     }
 
     /**
@@ -102,8 +105,9 @@ public class ViewController {
     public void setCurrentSource(Node currentSource) {
         this.currentSource = currentSource;
     }
-    public void showRelated(){
-        relatedContent=currentRelated.getPresentations().get(0).getTextBlob();
+
+    public void showRelated() {
+        relatedContent = currentRelated.getPresentations().get(0).getTextBlob();
     }
 
     public Node getCurrentRelated() {
@@ -129,20 +133,48 @@ public class ViewController {
     public void setRelatedContent(String relatedContent) {
         this.relatedContent = relatedContent;
     }
-    
-    public void loadRelatedContent(){
-        relatedContent=currentRelated.getPresentations().get(0).getTextBlob();
+
+    public void loadRelatedContent() {
+        relatedContent = currentRelated.getPresentations().get(0).getTextBlob();
     }
-    public void loadSourceContent(){
-        sourceContent=currentSource.getPresentations().get(0).getTextBlob();
+
+    public void loadSourceContent() {
+        sourceContent = currentSource.getPresentations().get(0).getTextBlob();
     }
-    public void loadSource(){
+
+    public void loadSource() {
         currentSource = (Node) sourceNodes.getRowData();
         loadSourceContent();
         loadAllRelated();
     }
-    public void loadRelated(){
-        currentRelated= (Node) relatedNodes.getRowData();
+
+    public void loadRelated() {
+        currentRelated = (Node) relatedNodes.getRowData();
         loadRelatedContent();
     }
+
+    public void createNode() {
+        AbstractOmniDAO dao = new DummyOmniDAO();
+        String message = "";
+
+        if (dao.createNewNode(newNode)) {
+            // show message of success
+            message = "Sucess!";
+
+        } else {
+            message = "ERROR createing new node.";
+        }
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, message, null);
+        FacesContext.getCurrentInstance().addMessage(null, fm);
+    }
+
+    public Node getNewNode() {
+        return newNode;
+    }
+
+    public void setNewNode(Node newNode) {
+        this.newNode = newNode;
+    }
+    
+    
 }

@@ -15,59 +15,92 @@
     <h:body>
         <h:form>
             <div class="main-container">
-                <div class="left-side-bar">
-                    <div class="search">
+                <h:panelGroup id="left-bar" layout="block" 
+                              class="left-side-bar">
+
+                    <div class="search-panel">
                         <h:outputLabel value="Search:"/>
                         <h:inputText class="search-key"/>
                     </div>
-                    <h:dataTable  class="source-nodes"
-                                  value="${viewController.sourceNodes}"
-                                  var="node">
 
-                        <h:column>
-                            <f:facet name="header">  
-                                <h:outputText value="Concept" />  
-                            </f:facet>  
-                            <div class="node-info">
-                                <div class="node-name">
-                                    <h:outputText value="${node.name}"/>
-                                </div>
-                                <div class="node-description">
-                                    <h:outputText value="${node.description}"/>
-                                </div>
-                            </div>
-                            <h:commandButton class="search" 
-                                             style="display: none;" type="submit"
-                                             action="${viewController.loadSource()}"/>
-                        </h:column>
-                    </h:dataTable>
-                </div>
+                    <div class="tools">
+                        <button class="new">New node</button>
+                        <button>Edit node</button>
+                        <button>Delete node</button>
 
-                <div class="center-content">
+                        <!-- Hiden Form to fill new node-->
+                        <h:panelGroup class="edit-new hidden" layout="block">
+                            <h:outputLabel value="Name: "/>
+                            <h:inputText id="name" 
+                                         value="${viewController.newNode.name}"/>
+                            <h:outputLabel value="Description: "/>
+                            <h:inputText id="description"
+                                         value="${viewController.newNode.description}"/>
+
+
+                            <h:commandButton class="save" value="Save"
+                                             action="${viewController.createNode()}"/>
+                        </h:panelGroup>
+                    </div>
+
+                    <div id="sources-panel">
+                        <div class="list-title">
+                            Concept
+                        </div>
+                        <h:panelGroup id="table-container" layout="block"
+                                      class="table-container">
+                            <h:dataTable  id="sources-table"
+                                          value="${viewController.sourceNodes}"
+                                          var="node">
+
+                                <h:column>
+                                    <div class="node-info">
+                                        <div class="node-name">
+                                            <h:outputText value="${node.name}"/>
+                                        </div>
+                                        <div class="node-description">
+                                            <h:outputText value="${node.description}"/>
+                                        </div>
+                                    </div>
+                                    <h:commandButton class="load-source" 
+                                                     style="display: none;" type="submit"
+                                                     action="${viewController.loadSource()}"/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </div>
+                </h:panelGroup>
+
+                <h:panelGroup id="center-content" layout="block"
+                              class="center-content">
                     center content
 
-                    <div class="top-concept scrollable">
+                    <div class="top-concept">
                         <editors:tinymce value="#{viewController.sourceContent}"/>
                     </div>
 
-                    <div class="bottom-concept scrollable">
+                    <div class="bottom-concept">
                         <editors:tinymce value="#{viewController.relatedContent}"/>
                     </div>
-                </div>
+                </h:panelGroup>
 
-                <div class="right-side-bar">
-                    <div class="search">
+                <h:panelGroup id="right-bar" layout="block"
+                              class="right-side-bar">
+                    <div class="search-panel">
                         <h:outputLabel value="Search:"/>
                         <h:inputText class="search-key"/>
+                    </div>
+                    <div class="tools">
+                        <button>New relationship</button>
+                        <button>Remove relationship</button>
+                    </div>
+                    <div class="list-title">
+                        Related
                     </div>
                     <h:dataTable  class="related-nodes"
                                   value="${viewController.relatedNodes}"
                                   var="node">
-
                         <h:column>
-                            <f:facet name="header">  
-                                <h:outputText value="${viewController.currentSource.name}'s Related" />  
-                            </f:facet>  
                             <div class="node-info">
                                 <div class="node-name">
                                     <h:outputText value="${node.name}"/>
@@ -76,13 +109,15 @@
                                     <h:outputText value="${node.description}"/>
                                 </div>
                             </div>
-                            <h:commandButton class="search" 
+                            <h:commandButton class="load-related" 
                                              style="display: none;" type="submit"
                                              action="${viewController.loadRelated()}"/>
                         </h:column>
                     </h:dataTable>
-                </div>
+                </h:panelGroup>
             </div>
+            <h:messages infoClass="info-message" 
+                        errorClass="erro-mesage"/>
         </h:form>
         <script type="text/javascript">
             setupView();

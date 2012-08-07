@@ -28,11 +28,15 @@ body{
     border: 1px solid #000;
 }
 
-table, div{
+/*table, div{
     border: 1px solid black;
-}
+}*/
 .main-container{
     height: 600px;
+}
+.left-side-bar, .right-side-bar, 
+.center-content{
+    border: 1px solid black;
 }
 
 .left-side-bar{
@@ -78,5 +82,48 @@ table, div{
     border-spacing: 0px;
 }
 .node-info{
+    color: white;
     text-align: center;
+    box-shadow: 1px 0px 7px 1px gray;
+    background: -webkit-linear-gradient(top, rgba(125, 185, 232, 0) 0%,rgba(30, 87, 153, 1) 100%);
+    border-radius: 10px;
+    padding: 5px;
+    word-break: normal;
+}
+.node-info > .node-name{
+    color: black;
+}
+.node-info.selected{
+    border: 2px solid black;
+}
+.node-info > .node-info{
+    color: whitesmoke;
+}
+.hidden{
+    display:none;
+}
+.tools{
+    min-height: 70px;
+    padding: 5px;
+}
+/**{
+    margin: 3px;   
+}*/
+.list-title{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+.table-container{
+    overflow-y: scroll;
+    max-height: 400px;
+}
+.search-panel{
+    padding: 3px;
+    text-align: center;
+}
+.search-panel > input{
+    width: 150px;
+    margin-left: 5px;
 }

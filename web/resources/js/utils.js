@@ -6,6 +6,13 @@
 
 function setupView(){
     $('.node-info').click(function(){
-        $(this).parent().find('input.search').click();
+        $('.node-info').removeClass('selected');
+        $(this).addClass('selected');
+        $(this).parent().find('input[class*=load]').click();
     });
+    
+    $('.new').click(function(){
+        $(this).parent().find('.edit-new').removeClass('hidden');
+    });
+    
 }

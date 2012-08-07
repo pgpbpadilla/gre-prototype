@@ -4,6 +4,7 @@
  */
 package com.model.dao;
 
+import com.model.pojos.Link;
 import com.model.pojos.Node;
 import java.util.List;
 
@@ -16,4 +17,15 @@ public interface AbstractOmniDAO {
     public List<Node> getAllNodes();
 
     public List<Node> getRelatedNodes(Node source);
+    
+    public boolean createNewNode(Node n);
+    
+    public boolean deleteNode(Node n);
+    
+    public boolean updateNode(Node n);
+    
+    public boolean addRelationship(Node source, Node target);
+    
+    public boolean removeRelationship(Link relationship);
+    
 }
