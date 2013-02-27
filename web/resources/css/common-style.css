@@ -1,128 +1,60 @@
-body{
-
-    font-family: sans-serif;
-}
-#page{
-    width: 800px;
-    margin: 0 auto;
-}
-
-#header{
-    width: 100%;
-    height:100px;
-    border: 1px solid #000;
-    margin-bottom:16px;
-}
-
-#content{
-    width: 100%;
-    height:200px;
-    margin-right:16px;
-    margin-bottom:16px;
-    border: 1px solid #000;
-}
-
-#footer{
-    width: 100%;
-    height:100px;
-    border: 1px solid #000;
-}
-
-/*table, div{
-    border: 1px solid black;
-}*/
-.main-container{
-    height: 600px;
-}
-.left-side-bar, .right-side-bar, 
-.center-content{
-    border: 1px solid black;
-}
-
-.left-side-bar{
-    display: inline-block;
-    width: 18%;
-    height: 100%;
-    min-width: 200px;
-    vertical-align: top;
-}
-.right-side-bar{
-    display: inline-block;
-    width: 18%;
+body,html{
     height:100%;
-    min-width: 200px;
-    vertical-align: top;
-}
-.center-content{
-    min-width: 50%;
-    display: inline-block;
-    height: 100%;
-}
-.top-concept{
-    min-height: 200px;
-}
-.bottom-concept{
-    min-height: 200px;
-}
-.scrollable{
-    overflow: scroll;
-}
-.node-name{
-    font-size: 14px;
-    font-weight: bold;
-    border:none;
-}
-.node-description{
-    font-size: 12px;
-    border:none;
-}
-.related-nodes,
-.source-nodes{
     width: 100%;
-    border-spacing: 0px;
 }
-.node-info{
-    text-align: center;
-    box-shadow: 1px 0px 7px 1px gray;
-    background: -webkit-linear-gradient(top, rgba(125, 185, 232, 0) 0%,rgba(30, 87, 153, 1) 100%);
-    border-radius: 10px;
-    padding: 5px;
-    word-break: normal;
+
+
+.workspace{
+    border: 1px solid red;
+    width: 90%;
+    height: 90%;
 }
-.node-info > .node-name{
-    color: black;
+
+.menu-bar {
+    width: 95%;
+    border: 1px solid black;
+    margin: auto;
 }
-.node-info.selected{
-    border: 2px solid black;
+
+.left-bar {
+    position: relative;
+    display: inline-block;
+    border: 1px solid black;
+    width: 2%;
+    background-color: green;
+    left: 1px;
 }
-.node-info > .node-description{
-    color: whiteSmoke;
+.main-content {
+    display: inline-block;
+    border: 1px solid black;
+    width: 95%;
+    height: 94%;
+    margin: 2px;
 }
-.hidden{
-    display:none;
+
+.current-question {
+    width: 100%;
+    height: 25%;
+    border: 1px solid blue;
 }
-.tools{
-    min-height: 70px;
-    padding: 5px;
+.editor {
+    height: 70%;
+    border: 1px solid lightcoral;
+    margin-top: 2px;
 }
-/**{
-    margin: 3px;   
-}*/
-.list-title{
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: center;
-    font-weight: bold;
+
+.options-menu {
+    display: inline-block; 
+    border: 1px solid lightskyblue; 
+    margin-left: 2px; 
+    margin-right: 2px;
 }
-.table-container{
-    overflow-y: scroll;
-    max-height: 400px;
+
+.tag-finder{
+    display: inline-block;
+    width: 20%;
 }
-.search-panel{
-    padding: 3px;
-    text-align: center;
-}
-.search-panel > input{
-    width: 150px;
-    margin-left: 5px;
+.tag-finder > input {
+    width: 90%;
+    margin: 3px;
 }
