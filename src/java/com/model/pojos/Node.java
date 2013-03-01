@@ -36,9 +36,6 @@ public class Node {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.tags = tags;
-        this.presentations=new ArrayList<Presentation>();
-        this.presentations.add(new Presentation(this, "Blob blob blob..." + id));
     }
 
     public String getDescription() {
