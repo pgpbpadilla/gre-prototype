@@ -7,7 +7,7 @@ var serviceNames= {
 var RequestManager= {
     
     defaultTimeOut: 10000, //10 seconds
-    callService: function(servicePath, paramsObj, callBack, timeout){
+    callService: function(servicePath, paramsObj, delegate, timeout){
         
         var jQxhr=$.ajax( {
             type: "POST",
@@ -16,7 +16,7 @@ var RequestManager= {
             data: paramsObj, 
             success: function(data){
                 console.log('done');
-                callBack(data);
+                delegate.processData(data);
             },
             error: function(request, error){ 
                 console.log('fail');
@@ -32,6 +32,17 @@ var Controller= {
 }
 
 var View= {
+    
+    processData: function(data){
+        
+        $('.current-question').text(JSON.stringify(data));
+        
+    },
+    loadTest: function(){
+        
+        RequestManager.callService('webresources/findNodes', { test: 'test'}, this);
+        
+    },
     
     buildMainContainer: function(){
     

@@ -6,17 +6,15 @@ package com.model.json;
 
 import com.google.gson.Gson;
 import com.model.dao.DummyOmniDAO;
-import com.model.pojos.Link;
 import com.model.pojos.Node;
 import java.util.List;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * REST Web Service
@@ -39,7 +37,7 @@ public class FindNodesResource {
      * Retrieves representation of an instance of com.model.json.FindNodesResource
      * @return an instance of java.lang.String
      */
-    @GET
+    @POST
     @Produces("application/json")
     public String getJson() {
         
