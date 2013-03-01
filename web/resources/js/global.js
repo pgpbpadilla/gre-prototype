@@ -1,4 +1,5 @@
 var serviceNames= {
+    FindNodes: 'webresources/findNodes',
     NewNode: 'new_node',
     DeleteNode: 'delete_node',
     UpdateNode: 'update_node'
@@ -35,12 +36,15 @@ var View= {
     
     processData: function(data){
         
-        $('.current-question').text(JSON.stringify(data));
+        $('.editor').text(JSON.stringify(data));
         
     },
     loadTest: function(){
         
-        RequestManager.callService('webresources/findNodes', { test: 'test'}, this);
+        var testParams= {
+            test: 'test'
+        };
+        RequestManager.callService( serviceNames.FindNodes, testParams, this);
         
     },
     

@@ -36,11 +36,13 @@ body,html{
     width: 100%;
     height: 25%;
     border: 1px solid blue;
+    overflow: scroll;
 }
 .editor {
     height: 70%;
     border: 1px solid lightcoral;
     margin-top: 2px;
+    overflow: scroll;
 }
 
 .options-menu {
