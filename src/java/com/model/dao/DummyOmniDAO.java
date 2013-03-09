@@ -4,10 +4,11 @@
  */
 package com.model.dao;
 
+import com.google.common.base.Predicate;
 import com.model.pojos.Link;
 import com.model.pojos.Node;
-import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
@@ -15,40 +16,51 @@ import java.util.List;
  */
 public class DummyOmniDAO implements AbstractOmniDAO {
 
+    private DBFake dbFake;
+
+    public DummyOmniDAO() {
+
+        dbFake = DBFake.getInstance();
+    }
+
     @Override
     public List<Node> getAllNodes() {
-        List<Node> list = new ArrayList<Node>();
-
-        for (int i = 0; i < 30; ++i) {
-            list.add(new Node(i, "Name " + i, "Description of node " + i + ": Adi dui dambala", null));
-        }
-
-        return list;
+        return dbFake.allNodes;
     }
 
     @Override
     public List<Node> getRelatedNodes(Node source) {
-        List<Node> list = new ArrayList<Node>();
-
-        for (int i = 0; i < 10; ++i) {
-            list.add(new Node(i, "Related: Name " + i, "Desc " + i, null));
-        }
-
-        return list;
+        return dbFake.allNodes;
     }
 
     @Override
     public boolean createNewNode(Node n) {
+
+        n.setId(dbFake.allNodes.size());
+        dbFake.allNodes.add(n);
+
         return true;
     }
 
-    @Override
-    public boolean addRelationship(Node source, Node target) {
+    public boolean addRelationship(Node source, Node target, String relDesc) {
+
+        // check if already exists
+        // if not, then create it
+        Node srcInstance = dbFake.allNodes.get(dbFake.allNodes.indexOf(source));
+        Node tgtInstance = dbFake.allNodes.get(dbFake.allNodes.indexOf(target));
+
+        Link rel = new Link(dbFake.allLinks.size(), relDesc, srcInstance, tgtInstance);
+
+        dbFake.allLinks.add(rel);
         return true;
     }
 
     @Override
     public boolean deleteNode(Node n) {
+        
+        Node toDel= dbFake.allNodes.get(dbFake.allNodes.indexOf(n));
+        dbFake.allLinks.remove(toDel);
+        
         return true;
     }
 
@@ -60,5 +72,13 @@ public class DummyOmniDAO implements AbstractOmniDAO {
     @Override
     public boolean updateNode(Node n) {
         return true;
+    }
+
+    public List<Node> findNodes(String pTest) {
+
+        List<Node> result = (List<Node>) CollectionUtils.select(dbFake.allNodes,
+                new TestPredicate(pTest));
+        
+        return result;
     }
 }
