@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.dao;
+package org.gre.prototype.model.dao;
 
-import com.google.common.base.Predicate;
 import com.model.pojos.Link;
 import com.model.pojos.Node;
 import java.util.List;
@@ -23,17 +22,14 @@ public class DummyOmniDAO implements AbstractOmniDAO {
         dbFake = DBFake.getInstance();
     }
 
-    @Override
     public List<Node> getAllNodes() {
         return dbFake.allNodes;
     }
 
-    @Override
     public List<Node> getRelatedNodes(Node source) {
         return dbFake.allNodes;
     }
 
-    @Override
     public boolean createNewNode(Node n) {
 
         n.setId(dbFake.allNodes.size());
@@ -55,22 +51,19 @@ public class DummyOmniDAO implements AbstractOmniDAO {
         return true;
     }
 
-    @Override
-    public boolean deleteNode(Node n) {
-        
-        Node toDel= dbFake.allNodes.get(dbFake.allNodes.indexOf(n));
+        public boolean deleteNode(Node n) {
+
+        Node toDel = dbFake.allNodes.get(dbFake.allNodes.indexOf(n));
         dbFake.allLinks.remove(toDel);
-        
+
         return true;
     }
 
-    @Override
-    public boolean removeRelationship(Link relationship) {
+        public boolean removeRelationship(Link relationship) {
         return true;
     }
 
-    @Override
-    public boolean updateNode(Node n) {
+        public boolean updateNode(Node n) {
         return true;
     }
 
@@ -78,7 +71,7 @@ public class DummyOmniDAO implements AbstractOmniDAO {
 
         List<Node> result = (List<Node>) CollectionUtils.select(dbFake.allNodes,
                 new TestPredicate(pTest));
-        
+
         return result;
     }
 }

@@ -5,7 +5,7 @@
 package org.gre.prototype.model.json;
 
 import com.google.gson.Gson;
-import com.model.dao.DummyOmniDAO;
+import org.gre.prototype.model.dao.DummyOmniDAO;
 import com.model.pojos.Node;
 import java.util.List;
 import javax.ws.rs.FormParam;

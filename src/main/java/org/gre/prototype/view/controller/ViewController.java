@@ -4,9 +4,9 @@
  */
 package org.gre.prototype.view.controller;
 
-import com.model.dao.AbstractOmniDAO;
+import org.gre.prototype.model.dao.AbstractOmniDAO;
 import com.utils.Filter;
-import com.model.dao.DummyOmniDAO;
+import org.gre.prototype.model.dao.DummyOmniDAO;
 import com.model.pojos.Node;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
