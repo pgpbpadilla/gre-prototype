@@ -14,6 +14,7 @@ import javax.ws.rs.core.Application;
 @javax.ws.rs.ApplicationPath("webresources")
 public class ApplicationConfig extends Application {
 
+    @Override
     public Set<Class<?>> getClasses() {
         return getRestResourceClasses();
     }
@@ -23,7 +24,14 @@ public class ApplicationConfig extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
+        resources.add(org.gre.prototype.model.json.NewNodeResource.class);
         resources.add(org.gre.prototype.model.json.FindNodesResource.class);
+        try {
+            Class<?> jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
+            resources.add(jacksonProvider);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         return resources;
     }
     

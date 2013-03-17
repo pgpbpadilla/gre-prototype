@@ -17,15 +17,14 @@ public interface AbstractOmniDAO {
     public List<Node> getAllNodes();
 
     public List<Node> getRelatedNodes(Node source);
-    
+
     public boolean createNewNode(Node n);
-    
+
     public boolean deleteNode(Node n);
-    
+
     public boolean updateNode(Node n);
-    
-    public boolean addRelationship(Node source, Node target);
-    
+
+    public boolean addRelationship(Node source, Node target, String relDesc);
+
     public boolean removeRelationship(Link relationship);
-    
 }

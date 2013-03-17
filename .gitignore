@@ -16,3 +16,4 @@ nbproject/private/
 *.swp
 *.out
 /dist/
+/target/
