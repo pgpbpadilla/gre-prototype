@@ -27,14 +27,31 @@ function GRETool() {
         };
         rm.callService(serviceNames.NewNode, params, printResponse);
     };
-    
+
     // call a RESTful service to search for nodes
     this.findNodes = function(searchText) {
 
         var params = {
             searchText: searchText
         };
-        
+
         rm.callService(serviceNames.FindNodes, params, this.delegate.showFoundNodes);
     };
+
+    this.setCurrentNode = function(node) {
+
+        curEditingNode = node;
+        this.delegate.closeResults();
+
+    };
+
+    this.getNode = function(nodeId) {
+
+        var params = {
+            nodeId: nodeId
+        };
+
+        rm.callService(serviceNames.GetNode, params, this.setCurrentNode);
+    };
+
 }

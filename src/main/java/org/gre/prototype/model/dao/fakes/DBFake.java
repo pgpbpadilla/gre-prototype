@@ -4,9 +4,10 @@
  */
 package org.gre.prototype.model.dao.fakes;
 
-import com.model.pojos.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.gre.prototype.model.pojos.Link;
+import org.gre.prototype.model.pojos.Node;
 
 /**
  *

@@ -1,15 +1,20 @@
 
 function ViewController() {
-    
-    var that= this;
-    
-    var model= new GRETool();
-    model.delegate= that;
-    
-    this.findNodes= function(textToSearch){
-        
+
+    var that = this;
+
+    var model = new GRETool();
+    model.delegate = that;
+
+    this.findNodes = function(textToSearch) {
+
         model.findNodes(textToSearch);
-        
+
+    };
+
+    this.getNode = function(nodeId) {
+
+        model.getNode(nodeId);
     };
 
     this.showFoundNodes = function(nodeList) {
@@ -33,6 +38,14 @@ function ViewController() {
 
         resultsDiv.append(resultsTable);
 
+        // events
+        $('.results td').click(function() {
+            var nodeId = JSON.parse($(this).text()).id;
+
+            that.getNode(nodeId);
+
+        });
+        
         resultsDiv.show();
     };
 
@@ -72,10 +85,10 @@ function ViewController() {
         tagFinder.find('input').prop('placeholder', 'placeholder');
         tagFinder.find('input').val('text');
         // events
-        tagFinder.find('input').blur(function(){
-            
+        tagFinder.find('input').blur(function() {
+
             that.findNodes($(this).val());
-            
+
         });
         menuBar.append(tagFinder); // append menu bar to workspace
 
@@ -110,6 +123,12 @@ function ViewController() {
         appWorkspace.append(leftBar);
         appWorkspace.append(mainContent);
         $('body').append(appWorkspace); // append the workspace to the page
+
+    };
+
+    this.closeResults = function() {
+
+        $('.results').hide();
 
     };
 }

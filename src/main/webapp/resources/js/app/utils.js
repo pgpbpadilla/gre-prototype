@@ -1,5 +1,6 @@
 var serviceNames = {
     FindNodes: 'webresources/findNodes',
+    GetNode: 'webresources/getNode',
     NewNode: 'webresources/newNode',
     DeleteNode: 'delete_node',
     UpdateNode: 'update_node'

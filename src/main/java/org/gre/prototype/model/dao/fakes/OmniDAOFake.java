@@ -4,12 +4,12 @@
  */
 package org.gre.prototype.model.dao.fakes;
 
-import com.model.pojos.Link;
-import com.model.pojos.Node;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.gre.prototype.model.dao.AbstractOmniDAO;
+import org.gre.prototype.model.pojos.*;
 import org.gre.prototype.utils.NodeContainsPredicate;
+import org.gre.prototype.utils.NodeIdIsPredicate;
 
 /**
  *
@@ -82,5 +82,16 @@ public class OmniDAOFake implements AbstractOmniDAO {
                 new NodeContainsPredicate(pTest));
 
         return result;
+    }
+    
+    public Node getNode(int nodeId){
+        List<Node> result = (List<Node>) CollectionUtils.select(dbFake.allNodes,
+                new NodeIdIsPredicate(nodeId));
+        
+        if (result.isEmpty()){
+            return null;
+        }
+        
+        return result.get(0);
     }
 }

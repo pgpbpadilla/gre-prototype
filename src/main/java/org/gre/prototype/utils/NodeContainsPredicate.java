@@ -4,7 +4,7 @@
  */
 package org.gre.prototype.utils;
 
-import com.model.pojos.Node;
+import org.gre.prototype.model.pojos.Node;
 import org.apache.commons.collections.Predicate;
 
 /**

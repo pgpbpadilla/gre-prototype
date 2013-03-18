@@ -2,9 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.model.pojos;
+package org.gre.prototype.model.pojos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
