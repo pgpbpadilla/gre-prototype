@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.gre.prototype.model.dao;
+package org.gre.prototype.utils;
 
 import com.model.pojos.Node;
 import org.apache.commons.collections.Predicate;
@@ -32,6 +32,6 @@ public class NodeContainsPredicate implements Predicate {
     public boolean evaluate(Object o) {
         Node n = (Node) o;
         return (n.getName().contains(searchTerm)
-                || n.getDescription().contains(searchTerm));
+                || n.getContent().contains(searchTerm));
     }
 }

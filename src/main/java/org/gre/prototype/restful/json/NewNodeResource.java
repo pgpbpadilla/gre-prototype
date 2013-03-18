@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.gre.prototype.model.json;
+package org.gre.prototype.restful.json;
 
 import com.google.gson.Gson;
 import com.model.pojos.Response;

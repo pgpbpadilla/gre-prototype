@@ -14,7 +14,7 @@ import java.util.List;
 public class Node {
     int id;
     String name;
-    String contents;
+    String content;
     /** Tags will allow for faster searches 
      * This way we can index the Nodes by topic
      */
@@ -27,7 +27,7 @@ public class Node {
 
     public Node() {
         name="";
-        contents="";
+        content="";
         tags=null;
         presentations=null;
     }
@@ -35,15 +35,15 @@ public class Node {
     public Node(int id, String name, String description, List<String> tags) {
         this.id = id;
         this.name = name;
-        this.contents = description;
+        this.content = description;
     }
 
-    public String getDescription() {
-        return contents;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.contents = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getId() {

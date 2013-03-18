@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.gre.prototype.model.json;
+package org.gre.prototype.restful.json;
 
 import com.google.gson.Gson;
 import org.gre.prototype.model.dao.fakes.OmniDAOFake;
@@ -34,33 +34,17 @@ public class FindNodesResource {
     public FindNodesResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of
-     * com.model.json.FindNodesResource
-     *
-     * @return an instance of java.lang.String
-     */
-    private String findNodes(String pTest) {
-        OmniDAOFake dao = new OmniDAOFake();
+    @POST
+    @Produces("application/json")
+    public String postJson(@FormParam("searchText") String searchText) {
 
-        List<Node> nodes = dao.findNodes(pTest);
+        OmniDAOFake daoFake = new OmniDAOFake();
+
+        List<Node> nodes = daoFake.findNodes(searchText);
 
         Gson gson = new Gson();
         String json = gson.toJson(nodes);
-        System.out.println("JSON: " + json);
+
         return json;
-    }
-
-    @POST
-    @Produces("application/json")
-    public String postJson(@FormParam("test") String pTest) {
-
-        return findNodes(pTest);
-    }
-
-    @GET
-    @Produces("application/json")
-    public String getJson(@QueryParam("test") String pTest) {
-        return findNodes(pTest);
     }
 }

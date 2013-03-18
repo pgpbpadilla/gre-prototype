@@ -1,78 +1,16 @@
-var serviceNames = {
-    FindNodes: 'webresources/findNodes',
-    NewNode: 'webresources/newNode',
-    DeleteNode: 'delete_node',
-    UpdateNode: 'update_node'
-};
-
-function RequestManager() {
-
-    this.defaultTimeOut = 10000; //10 seconds
-
-    this.callService = function(servicePath, paramsObj, callback) {
-        this.callService(servicePath, paramsObj, callback, this.defaultTimeOut);
-    };
-    this.callService = function(servicePath, paramsObj, callback, timeout) {
-
-        $.ajax({
-            type: "POST",
-            timeout: timeout,
-            url: servicePath,
-            data: paramsObj,
-            success: function(data) {
-                console.log('done');
-                callback(data);
-            },
-            error: function(request, error) {
-                console.log(JSON.stringify(request)
-                        + "\nERROR:" + JSON.stringify(error));
-            }
-        });
-    };
-}
-
-function Node() {
-    this.id;
-    this.name;
-    this.content;
-}
-
-function GRETool() {
-
-    // a reference to the view-controller
-    this.delegate = {};
-    this.delegate.prototype = new ViewController();
-
-    // create a new node to save the current work
-    this.curEditingNode = {};
-    this.curEditingNode.prototype = new Node();
-    // create the request manager
-    rm = new RequestManager();
-    // temporal function to process request responses
-    function printResponse(data) {
-        console.log(JSON.stringify(data));
-    }
-
-    // call a RESTful service to create a new node
-    this.createNode = function(newNode) {
-
-        var params = {
-            content: newNode.content
-        };
-        rm.callService(serviceNames.NewNode, params, printResponse);
-    };
-    
-    // call a RESTful service to search for nodes
-    this.findNodes = function(searchText) {
-
-        var params = {
-            searchTerms: text
-        };
-        rm.callService(serviceNames.FindNodes, params, delegate.showFoundNodes);
-    };
-}
 
 function ViewController() {
+    
+    var that= this;
+    
+    var model= new GRETool();
+    model.delegate= that;
+    
+    this.findNodes= function(textToSearch){
+        
+        model.findNodes(textToSearch);
+        
+    };
 
     this.showFoundNodes = function(nodeList) {
 
@@ -86,18 +24,8 @@ function ViewController() {
             var tr = $('<tr>');
 
             var td = $('<td>');
-            td.prop('class', 'id');
-            td.text(nodeList[i].id);
-            tr.append(td);
-
-            td = $('<td>');
-            td.prop('class', 'name');
-            td.text(nodeList[i].name);
-            tr.append(td);
-
-            td = $('<td>');
-            td.prop('class', 'description');
-            td.text(nodeList[i].description);
+            td.prop('class', 'result-node');
+            td.text(JSON.stringify(nodeList[i]));
             tr.append(td);
 
             resultsTable.append(tr);
@@ -143,6 +71,12 @@ function ViewController() {
         // test input
         tagFinder.find('input').prop('placeholder', 'placeholder');
         tagFinder.find('input').val('text');
+        // events
+        tagFinder.find('input').blur(function(){
+            
+            that.findNodes($(this).val());
+            
+        });
         menuBar.append(tagFinder); // append menu bar to workspace
 
         var optionsMenu = $('<div>');

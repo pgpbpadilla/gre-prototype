@@ -24,8 +24,8 @@ public class ApplicationConfig extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
-        resources.add(org.gre.prototype.model.json.NewNodeResource.class);
-        resources.add(org.gre.prototype.model.json.FindNodesResource.class);
+        resources.add(org.gre.prototype.restful.json.NewNodeResource.class);
+        resources.add(org.gre.prototype.restful.json.FindNodesResource.class);
         try {
             Class<?> jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
             resources.add(jacksonProvider);

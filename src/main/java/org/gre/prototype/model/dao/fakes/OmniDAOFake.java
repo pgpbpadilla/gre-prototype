@@ -9,7 +9,7 @@ import com.model.pojos.Node;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.gre.prototype.model.dao.AbstractOmniDAO;
-import org.gre.prototype.model.dao.NodeContainsPredicate;
+import org.gre.prototype.utils.NodeContainsPredicate;
 
 /**
  *

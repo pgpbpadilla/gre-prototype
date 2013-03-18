@@ -1,18 +1,32 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+var serviceNames = {
+    FindNodes: 'webresources/findNodes',
+    NewNode: 'webresources/newNode',
+    DeleteNode: 'delete_node',
+    UpdateNode: 'update_node'
+};
 
+function RequestManager() {
 
-function setupView(){
-    $('.node-info').click(function(){
-        $('.node-info').removeClass('selected');
-        $(this).addClass('selected');
-        $(this).parent().find('input[class*=load]').click();
-    });
-    
-    $('.new').click(function(){
-        $(this).parent().find('.edit-new').removeClass('hidden');
-    });
-    
+    this.defaultTimeOut = 10000; //10 seconds
+
+    this.callService = function(servicePath, paramsObj, callback) {
+        this.callService(servicePath, paramsObj, callback, this.defaultTimeOut);
+    };
+    this.callService = function(servicePath, paramsObj, callback, timeout) {
+
+        $.ajax({
+            type: "POST",
+            timeout: timeout,
+            url: servicePath,
+            data: paramsObj,
+            success: function(data) {
+                console.log('done');
+                callback(data);
+            },
+            error: function(request, error) {
+                console.log(JSON.stringify(request)
+                        + "\nERROR:" + JSON.stringify(error));
+            }
+        });
+    };
 }

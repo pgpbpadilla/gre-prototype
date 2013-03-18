@@ -30,6 +30,7 @@ body,html{
     width: 95%;
     height: 94%;
     margin: 2px;
+    position: relative; 
 }
 
 .current-question {
@@ -59,4 +60,19 @@ body,html{
 .tag-finder > input {
     width: 90%;
     margin: 3px;
+}
+
+.results{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    border: 2px solid blue;
+    border-radius: 5px;
+    width: 85%;
+    margin: auto;
+    background-color: lightblue;
+}
+.results table{
+    width: 90%;
+    margin: auto;
 }
