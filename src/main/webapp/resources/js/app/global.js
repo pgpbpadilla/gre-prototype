@@ -12,7 +12,6 @@ function RequestManager() {
     this.callService = function(servicePath, paramsObj, callback) {
         this.callService(servicePath, paramsObj, callback, this.defaultTimeOut);
     };
-
     this.callService = function(servicePath, paramsObj, callback, timeout) {
 
         $.ajax({
@@ -40,60 +39,103 @@ function Node() {
 
 function GRETool() {
 
+    // a reference to the view-controller
+    this.delegate = {};
+    this.delegate.prototype = new ViewController();
+
+    // create a new node to save the current work
     this.curEditingNode = {};
     this.curEditingNode.prototype = new Node();
-
+    // create the request manager
     rm = new RequestManager();
-
+    // temporal function to process request responses
     function printResponse(data) {
         console.log(JSON.stringify(data));
     }
 
+    // call a RESTful service to create a new node
     this.createNode = function(newNode) {
 
-        params = {
+        var params = {
             content: newNode.content
         };
-
         rm.callService(serviceNames.NewNode, params, printResponse);
     };
+    
+    // call a RESTful service to search for nodes
+    this.findNodes = function(searchText) {
 
-
+        var params = {
+            searchTerms: text
+        };
+        rm.callService(serviceNames.FindNodes, params, delegate.showFoundNodes);
+    };
 }
 
-var View = {
-    processData: function(data) {
+function ViewController() {
+
+    this.showFoundNodes = function(nodeList) {
+
+        var resultsDiv = $('.results');
+
+        var resultsTable = $('<table>');
+        resultsTable.prop('class', 'results-table');
+
+        for (var i = 0; i < nodeList.length; ++i) {
+
+            var tr = $('<tr>');
+
+            var td = $('<td>');
+            td.prop('class', 'id');
+            td.text(nodeList[i].id);
+            tr.append(td);
+
+            td = $('<td>');
+            td.prop('class', 'name');
+            td.text(nodeList[i].name);
+            tr.append(td);
+
+            td = $('<td>');
+            td.prop('class', 'description');
+            td.text(nodeList[i].description);
+            tr.append(td);
+
+            resultsTable.append(tr);
+        }
+
+        resultsDiv.append(resultsTable);
+
+        resultsDiv.show();
+    };
+
+    this.processData = function(data) {
 
         $('.editor').text(JSON.stringify(data));
+    };
 
-    },
-    loadTest: function() {
+    this.loadTest = function() {
 
         var testParams = {
             test: '1'
         };
         var rm = new RequestManager();
+        rm.callService(serviceNames.FindNodes, testParams, this.showFoundNodes);
+    };
 
-        rm.callService(serviceNames.FindNodes, testParams, this.processData);
+    this.buildMainContainer = function() {
 
-    },
-    buildMainContainer: function() {
-
-        // create workspace
+// create workspace
         var appWorkspace = $('<div>');
         appWorkspace.prop('id', 'workspace');
         appWorkspace.addClass('workspace');
-
         // main content
         var mainContent = $('<div>');
         mainContent.prop('id', 'main-content');
         mainContent.addClass('main-content');
-
         // menu bar
         var menuBar = $('<div>');
         menuBar.prop('id', 'menu-bar');
         menuBar.addClass('menu-bar');
-
         var tagFinder = $('<div>');
         tagFinder.prop('tag-finder');
         tagFinder.addClass('tag-finder');
@@ -108,12 +150,10 @@ var View = {
         optionsMenu.addClass('options-menu');
         optionsMenu.text('Options Menu');
         menuBar.append(optionsMenu);
-
         var leftBar = $('<div>');
         leftBar.prop('id', 'left-bar');
         leftBar.addClass('left-bar');
         leftBar.append($('<div>').text('CW'));
-
         var questionBar = $('<div>');
         questionBar.prop('id', 'current-question');
         questionBar.addClass('current-question');
@@ -126,12 +166,16 @@ var View = {
         editor.text('This will be the editor');
         mainContent.append(editor); // append the editor 
 
+        var resultsDiv = $('<div>');
+        resultsDiv.prop('id', 'results');
+        resultsDiv.addClass('results');
+        mainContent.append(resultsDiv);
+        resultsDiv.hide();
+
         appWorkspace.append(menuBar);
         appWorkspace.append(leftBar);
-        appWorkspace.append(mainContent)
-
+        appWorkspace.append(mainContent);
         $('body').append(appWorkspace); // append the workspace to the page
 
-    }
-
-};
+    };
+}
