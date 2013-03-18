@@ -5,7 +5,7 @@
 package org.gre.prototype.model.json;
 
 import com.google.gson.Gson;
-import org.gre.prototype.model.dao.DummyOmniDAO;
+import org.gre.prototype.model.dao.fakes.OmniDAOFake;
 import com.model.pojos.Node;
 import java.util.List;
 import javax.ws.rs.FormParam;
@@ -41,7 +41,7 @@ public class FindNodesResource {
      * @return an instance of java.lang.String
      */
     private String findNodes(String pTest) {
-        DummyOmniDAO dao = new DummyOmniDAO();
+        OmniDAOFake dao = new OmniDAOFake();
 
         List<Node> nodes = dao.findNodes(pTest);
 

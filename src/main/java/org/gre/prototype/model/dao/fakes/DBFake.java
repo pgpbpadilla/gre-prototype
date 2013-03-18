@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.gre.prototype.model.dao;
+package org.gre.prototype.model.dao.fakes;
 
 import com.model.pojos.*;
 import java.util.ArrayList;

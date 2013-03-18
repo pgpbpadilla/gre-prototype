@@ -6,7 +6,7 @@ package org.gre.prototype.view.controller;
 
 import org.gre.prototype.model.dao.AbstractOmniDAO;
 import com.utils.Filter;
-import org.gre.prototype.model.dao.DummyOmniDAO;
+import org.gre.prototype.model.dao.fakes.OmniDAOFake;
 import com.model.pojos.Node;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -54,7 +54,7 @@ public class ViewController {
      * description
      */
     private void loadSourceNodes() {
-        DummyOmniDAO dod = new DummyOmniDAO();
+        OmniDAOFake dod = new OmniDAOFake();
         sourceNodes = new ListDataModel<Node>(dod.getAllNodes());
     }
 
@@ -66,7 +66,7 @@ public class ViewController {
      * @return DataModel
      */
     public void loadAllRelated() {
-        AbstractOmniDAO dao = new DummyOmniDAO();
+        AbstractOmniDAO dao = new OmniDAOFake();
         currentSource = (Node) sourceNodes.getRowData();
         relatedNodes = new ListDataModel<Node>(dao.getRelatedNodes(currentSource));
     }
@@ -154,7 +154,7 @@ public class ViewController {
     }
 
     public void createNode() {
-        AbstractOmniDAO dao = new DummyOmniDAO();
+        AbstractOmniDAO dao = new OmniDAOFake();
         String message = "";
 
         if (dao.createNewNode(newNode)) {
