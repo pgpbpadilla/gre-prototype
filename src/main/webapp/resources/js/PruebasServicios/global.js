@@ -1,6 +1,6 @@
 var serviceNames = {
-    FindNodes: 'webresources/findNodes',
-    NewNode: 'webresources/newNode',
+    FindNodes: 'gre/services/find_nodes.html',
+    NewNode: 'gre/services/new_node.html',
     DeleteNode: 'delete_node',
     UpdateNode: 'update_node'
 };
