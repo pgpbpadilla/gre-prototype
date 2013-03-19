@@ -4,9 +4,9 @@
  */
 package org.gre.prototype.model.dao;
 
-import com.model.pojos.Link;
-import com.model.pojos.Node;
+
 import java.util.List;
+import org.gre.prototype.model.pojos.*;
 
 /**
  *
