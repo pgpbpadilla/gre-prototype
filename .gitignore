@@ -17,3 +17,5 @@ nbproject/private/
 *.out
 /dist/
 /target/
+nbactions.xml
+nb-configuration.xml

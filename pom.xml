@@ -10,6 +10,7 @@
     <name>gre-prototype</name>
 
     <properties>
+		<netbeans.compile.on.save>all</netbeans.compile.on.save>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jersey.version>1.13</jersey.version>

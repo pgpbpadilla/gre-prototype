@@ -5,11 +5,11 @@
 package org.gre.prototype.controller;
 
 import com.google.gson.Gson;
-import com.model.pojos.Node;
+import org.gre.prototype.model.pojos.Node;
 import com.model.pojos.Response;
 import java.util.List;
 import javax.ws.rs.Produces;
-import org.gre.prototype.model.dao.DummyOmniDAO;
+import org.gre.prototype.model.dao.fakes.OmniDAOFake;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/services/*")
 public class ServicesController {
     
-    @RequestMapping("find_nodes.html")
+    @RequestMapping("find_nodes")
     @Produces("application/json")
     public @ResponseBody Object findNodes(
-            @RequestParam(value = "test", required = false) String psTest) {
+            @RequestParam(value = "searchText", required = false) String searchText) {
         
-        DummyOmniDAO dao = new DummyOmniDAO();
+        OmniDAOFake dao= new OmniDAOFake();
         
-        List<Node> nodes = dao.findNodes(psTest);
+        List<Node> nodes = dao.findNodes(searchText);
 
         Gson gson = new Gson();
         String json = gson.toJson(nodes);
