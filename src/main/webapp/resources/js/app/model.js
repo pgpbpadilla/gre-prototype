@@ -1,57 +1,50 @@
-function Node() {
-    this.id;
-    this.name;
-    this.content;
-}
+var node = {
+    id: '',
+    name: '',
+    content: ''
+};
 
-function GRETool() {
-
+var greTool = {
+    services: {
+        FindNodes: 'gre/services/find_nodes',
+        GetNode: 'gre/services/get_node',
+        NewNode: 'gre/services/new_node',
+        DeleteNode: 'gre/services/delete_node',
+        UpdateNode: 'gre/services/update_node'
+    },
     // a reference to the view-controller
-    this.delegate = {};
-
+    delegate: null,
     // create a new node to save the current work
-    this.curEditingNode = {};
-    this.curEditingNode.prototype = new Node();
+    curEditingNode: Object.create(node),
     // create the request manager
-    rm = new RequestManager();
-    // temporal function to process request responses
-    function printResponse(data) {
-        console.log(JSON.stringify(data));
-    }
-
+    rm: Object.create(requestManager),
     // call a RESTful service to create a new node
-    this.createNode = function(newNode) {
+    createNode: function(newNode) {
 
         var params = {
             content: newNode.content
         };
-        rm.callService(serviceNames.NewNode, params, printResponse);
-    };
-
+        this.rm.callService(serviceNames.NewNode, params, printResponse);
+    },
     // call a RESTful service to search for nodes
-    this.findNodes = function(searchText) {
+    findNodes: function(searchText) {
 
         var params = {
             searchText: searchText
         };
+        this.rm.callService(this.services.FindNodes, params, this.delegate.showFoundNodes);
+    },
+    setCurrentNode: function(node) {
 
-        rm.callService(serviceNames.FindNodes, params, this.delegate.showFoundNodes);
-    };
-
-    this.setCurrentNode = function(node) {
-
-        curEditingNode = node;
+        this.curEditingNode = node;
+        // ask the view controller to close the results view
         this.delegate.closeResults();
-
-    };
-
-    this.getNode = function(nodeId) {
+    },
+    getNode: function(nodeId) {
 
         var params = {
             nodeId: nodeId
         };
-
-        rm.callService(serviceNames.GetNode, params, this.setCurrentNode);
-    };
-
-}
+        this.rm.callService(this.services.GetNode, params, this.setCurrentNode);
+    }
+};

@@ -1,23 +1,17 @@
 
-function ViewController() {
-
-    var that = this;
-
-    var model = new GRETool();
-    model.delegate = that;
-
-    this.findNodes = function(textToSearch) {
-
-        model.findNodes(textToSearch);
-
-    };
-
-    this.getNode = function(nodeId) {
-
-        model.getNode(nodeId);
-    };
-
-    this.showFoundNodes = function(nodeList) {
+var viewController = {
+    model: Object.create(greTool),
+    initialize: function() {
+        this.model.delegate = this;
+        this.buildMainContainer();
+    },
+    findNodes: function(textToSearch) {
+        this.model.findNodes(textToSearch);
+    },
+    getNode: function(nodeId) {
+        this.model.getNode(nodeId);
+    },
+    showFoundNodes: function(nodeList) {
 
         var resultsDiv = $('.results');
 
@@ -39,33 +33,26 @@ function ViewController() {
         resultsDiv.append(resultsTable);
 
         // events
+        // TODO: review how to access the viewController's methods
+        // since this is bound to Window, because it's called
+        // from an anonymous function in the ajax call success method.
+        var that = this;
         $('.results td').click(function() {
             var nodeId = JSON.parse($(this).text()).id;
 
             that.getNode(nodeId);
 
         });
-        
-        resultsDiv.show();
-    };
 
-    this.processData = function(data) {
+        resultsDiv.show();
+    },
+    processData: function(data) {
 
         $('.editor').text(JSON.stringify(data));
-    };
+    },
+    buildMainContainer: function() {
 
-    this.loadTest = function() {
-
-        var testParams = {
-            test: '1'
-        };
-        var rm = new RequestManager();
-        rm.callService(serviceNames.FindNodes, testParams, this.showFoundNodes);
-    };
-
-    this.buildMainContainer = function() {
-
-// create workspace
+        // create workspace
         var appWorkspace = $('<div>');
         appWorkspace.prop('id', 'workspace');
         appWorkspace.addClass('workspace');
@@ -85,6 +72,8 @@ function ViewController() {
         tagFinder.find('input').prop('placeholder', 'placeholder');
         tagFinder.find('input').val('text');
         // events
+        // find nodes
+        var that = this;
         tagFinder.find('input').blur(function() {
 
             that.findNodes($(this).val());
@@ -124,11 +113,10 @@ function ViewController() {
         appWorkspace.append(mainContent);
         $('body').append(appWorkspace); // append the workspace to the page
 
-    };
-
-    this.closeResults = function() {
+    },
+    closeResults: function() {
 
         $('.results').hide();
 
-    };
-}
+    }
+};

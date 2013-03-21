@@ -1,19 +1,10 @@
-var serviceNames = {
-    FindNodes: 'webresources/findNodes',
-    GetNode: 'webresources/getNode',
-    NewNode: 'webresources/newNode',
-    DeleteNode: 'delete_node',
-    UpdateNode: 'update_node'
-};
+var requestManager = {
+    defaultTimeOut: 10000, //10 seconds
 
-function RequestManager() {
-
-    this.defaultTimeOut = 10000; //10 seconds
-
-    this.callService = function(servicePath, paramsObj, callback) {
-        this.callService(servicePath, paramsObj, callback, this.defaultTimeOut);
-    };
-    this.callService = function(servicePath, paramsObj, callback, timeout) {
+    callService: function(servicePath, paramsObj, callback) {
+        this.callServiceWithTimeOut(servicePath, paramsObj, callback, this.defaultTimeOut);
+    },
+    callServiceWithTimeOut: function(servicePath, paramsObj, callback, timeout) {
 
         $.ajax({
             type: "POST",
@@ -29,5 +20,5 @@ function RequestManager() {
                         + "\nERROR:" + JSON.stringify(error));
             }
         });
-    };
-}
+    }
+};
