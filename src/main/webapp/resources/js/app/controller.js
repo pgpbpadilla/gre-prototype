@@ -5,9 +5,6 @@ var viewController = {
         this.model.delegate = this;
         this.buildMainContainer();
     },
-    findNodes: function(textToSearch) {
-        this.model.findNodes(textToSearch);
-    },
     getNode: function(nodeId) {
         this.model.getNode(nodeId);
     },
@@ -32,19 +29,18 @@ var viewController = {
 
         resultsDiv.append(resultsTable);
 
-        // events
-        // TODO: review how to access the viewController's methods
-        // since this is bound to Window, because it's called
-        // from an anonymous function in the ajax call success method.
-        var that = this;
+        //set up events for the newly created results table
+        var model = this.model;
         $('.results td').click(function() {
-            var nodeId = JSON.parse($(this).text()).id;
-
-            that.getNode(nodeId);
-
+            var node = JSON.parse($(this).text());
+            model.setCurrentNode(node);
         });
 
+        // show the results table
         resultsDiv.show();
+    },
+    setCurNode: function(node) {
+        $('.editor').text(node.content);
     },
     processData: function(data) {
 
@@ -71,14 +67,7 @@ var viewController = {
         // test input
         tagFinder.find('input').prop('placeholder', 'placeholder');
         tagFinder.find('input').val('text');
-        // events
-        // find nodes
-        var that = this;
-        tagFinder.find('input').blur(function() {
 
-            that.findNodes($(this).val());
-
-        });
         menuBar.append(tagFinder); // append menu bar to workspace
 
         var optionsMenu = $('<div>');
@@ -95,6 +84,8 @@ var viewController = {
         questionBar.addClass('current-question');
         questionBar.text('Why did the chicken crossed the road..?');
         mainContent.append(questionBar); // append questionBar to mainContent
+        // hide the question bar initially
+        questionBar.hide();
 
         var editor = $('<div>');
         editor.prop('id', 'editor');
@@ -113,6 +104,14 @@ var viewController = {
         appWorkspace.append(mainContent);
         $('body').append(appWorkspace); // append the workspace to the page
 
+        // setup events for search input
+        var that = this;
+        tagFinder.find('input').blur(function() {
+            // use the model to find the nodes that match
+            // the given criteria
+            that.model.findNodes($(this).val());
+
+        });
     },
     closeResults: function() {
 

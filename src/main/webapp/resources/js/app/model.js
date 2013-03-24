@@ -19,32 +19,35 @@ var greTool = {
     // create the request manager
     rm: Object.create(requestManager),
     // call a RESTful service to create a new node
-    createNode: function(newNode) {
-
-        var params = {
-            content: newNode.content
-        };
-        this.rm.callService(serviceNames.NewNode, params, printResponse);
-    },
-    // call a RESTful service to search for nodes
+    createNode: function(newNode) {},
+    // call a RESTful service to search for nodes containing
+    // searchText in its name or content
     findNodes: function(searchText) {
 
         var params = {
             searchText: searchText
         };
-        this.rm.callService(this.services.FindNodes, params, this.delegate.showFoundNodes);
+
+        this.rm.callService({
+            servicePath: this.services.FindNodes,
+            params: params,
+            delegate: this,
+            callback: this.processFoundNodes
+        });
     },
     setCurrentNode: function(node) {
 
         this.curEditingNode = node;
+        // tell the controller to process the current node
+        this.delegate.setCurNode(this.curEditingNode);
         // ask the view controller to close the results view
         this.delegate.closeResults();
     },
     getNode: function(nodeId) {
+    },
+    // callback for FindNodes call
+    processFoundNodes: function(nodes) {
 
-        var params = {
-            nodeId: nodeId
-        };
-        this.rm.callService(this.services.GetNode, params, this.setCurrentNode);
+        this.delegate.showFoundNodes(nodes);
     }
 };
