@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Node {
     int id;
-    String name;
+    String title;
     String content;
     /** Tags will allow for faster searches 
      * This way we can index the Nodes by topic
@@ -25,7 +25,7 @@ public class Node {
     List<Presentation> presentations;
 
     public Node() {
-        name="";
+        title="";
         content="";
         tags=null;
         presentations=null;
@@ -33,7 +33,7 @@ public class Node {
 
     public Node(int id, String name, String description, List<String> tags) {
         this.id = id;
-        this.name = name;
+        this.title = name;
         this.content = description;
     }
 
@@ -53,12 +53,12 @@ public class Node {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public List<String> getTags() {

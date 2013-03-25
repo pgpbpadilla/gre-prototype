@@ -31,7 +31,7 @@ public class NodeContainsPredicate implements Predicate {
     @Override
     public boolean evaluate(Object o) {
         Node n = (Node) o;
-        return (n.getName().contains(searchTerm)
+        return (n.getTitle().contains(searchTerm)
                 || n.getContent().contains(searchTerm));
     }
 }

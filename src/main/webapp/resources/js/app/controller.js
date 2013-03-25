@@ -5,46 +5,29 @@ var viewController = {
         this.model.delegate = this;
         this.buildMainContainer();
     },
-    getNode: function(nodeId) {
-        this.model.getNode(nodeId);
-    },
     showFoundNodes: function(nodeList) {
 
-        var resultsDiv = $('.results');
+        var resultsDiv, resultsTable, tr, td, model;
 
-        var resultsTable = $('<table>');
+        resultsDiv = $('.results');
+
+        resultsTable = this.buildResultsTable(nodeList);
         resultsTable.prop('class', 'results-table');
-
-        for (var i = 0; i < nodeList.length; ++i) {
-
-            var tr = $('<tr>');
-
-            var td = $('<td>');
-            td.prop('class', 'result-node');
-            td.text(JSON.stringify(nodeList[i]));
-            tr.append(td);
-
-            resultsTable.append(tr);
-        }
-
+        
         resultsDiv.append(resultsTable);
 
         //set up events for the newly created results table
-        var model = this.model;
+        model = this.model;
         $('.results td').click(function() {
-            var node = JSON.parse($(this).text());
-            model.setCurrentNode(node);
+            var curNode = JSON.parse($(this).text());
+            model.selectConceptFromResult(curNode);
         });
 
         // show the results table
         resultsDiv.show();
     },
-    setCurNode: function(node) {
-        $('.editor').text(node.content);
-    },
-    processData: function(data) {
-
-        $('.editor').text(JSON.stringify(data));
+    showCurrentConcept: function(curNode) {
+        $('.editor').text(curNode.content);
     },
     buildMainContainer: function() {
 
@@ -115,7 +98,26 @@ var viewController = {
     },
     closeResults: function() {
 
-        $('.results').hide();
+        $('.results').empty().hide();
 
+    },
+    buildResultsTable: function(nodeList) {
+        var tr, td, resultsTable;
+        
+        resultsTable= $('<table>');
+
+        for (var i = 0; i < nodeList.length; ++i) {
+
+            tr = $('<tr>');
+
+            td = $('<td>');
+            td.prop('class', 'result-node');
+            td.text(JSON.stringify(nodeList[i]));
+
+            tr.append(td);
+
+            resultsTable.append(tr);
+        }
+        return resultsTable;
     }
 };
