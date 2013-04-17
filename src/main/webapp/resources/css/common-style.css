@@ -45,14 +45,6 @@ body,html{
     margin-top: 2px;
     overflow: scroll;
 }
-
-.options-menu {
-    display: inline-block; 
-    border: 1px solid lightskyblue; 
-    margin-left: 2px; 
-    margin-right: 2px;
-}
-
 .tag-finder{
     display: inline-block;
     width: 20%;
